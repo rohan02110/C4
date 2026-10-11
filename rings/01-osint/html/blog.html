@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Engineering Log — Project VYUHA Architecture Notes</title>
+    <style>
+        body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; background: #0c0c14; color: #cbd5e1; margin: 0; padding: 40px; line-height: 1.6; }
+        .container { max-width: 720px; margin: 0 auto; background: #13131f; padding: 36px; border-radius: 12px; border: 1px solid #232338; }
+        h1 { color: #f59e0b; margin-top: 0; }
+        .date { color: #64748b; font-size: 13px; margin-bottom: 24px; }
+        blockquote { border-left: 3px solid #f59e0b; margin: 0; padding-left: 16px; color: #94a3b8; font-style: italic; }
+        code { background: #1a1a2e; color: #38bdf8; padding: 2px 6px; border-radius: 4px; font-family: monospace; }
+        a { color: #f59e0b; text-decoration: none; }
+        .hint-box { background: #1e1e2d; border: 1px solid #3b3b54; padding: 16px; border-radius: 8px; margin-top: 24px; font-size: 13px; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Engineering Log: Deconstructing Ring 1 Defense</h1>
+        <div class="date">Posted by Lead Architect // Project VYUHA Consortium</div>
+
+        <p>
+            When we designed the defensive perimeter for <strong>CHAKRAVYUHA</strong>, we named each layer after the Mahabharata epic. 
+            Ring One belongs to <em>Jayadratha</em>. In the epic, Jayadratha held the entire Pandava vanguard by virtue of an inviolable boon. 
+            Accordingly, our outer gateway (<code>chakravyuha-outer.ctf.local</code>) is an impenetrable honeypot.
+        </p>
+
+        <blockquote>
+            "Don't fight Jayadratha directly. The boon makes him unbeatable head-on. The lateral seam is the only way in."
+        </blockquote>
+
+        <p>
+            During last week's staging sync from our Bangalore office, we provisioned an unindexed staging ingress for our QA analysts:
+            <code>vyuha-staging.ctf.local</code> (or directly at <code>/staging</code> on the staging proxy).
+        </p>
+
+        <div class="hint-box">
+            <strong>Internal Memo — QA Credential Policy:</strong><br>
+            All test analyst accounts conform to: <code>analyst_{initials}</code>.<br>
+            Default temporary password convention: <code>{mythological_pet}{join_year}{symbol}</code><br>
+            Example for Architect S. Drona (Joined 2023, white steed 'indra'): <code>analyst_sd</code> / <code>indra2023!</code>
+        </div>
+
+        <p style="margin-top: 24px;">
+            <a href="/staging">&rarr; Proceed to VYUHA Staging Ingress Portal</a>
+        </p>
+    </div>
+</body>
+</html>

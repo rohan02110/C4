@@ -1,0 +1,145 @@
+version: '3.8'
+
+networks:
+  public:
+    driver: bridge
+  internal:
+    driver: bridge
+    internal: true
+  internal-db:
+    driver: bridge
+    internal: true
+
+services:
+  # ============================================================
+  # RING 1 — OSINT: Jayadratha's Gate
+  # ============================================================
+  vyuha-osint-assets:
+    build:
+      context: ./rings/01-osint
+    container_name: vyuha-osint-assets
+    restart: unless-stopped
+    ports:
+      - "${PORT_OSINT:-8081}:80"
+    networks:
+      - public
+
+  # ============================================================
+  # RING 2 — Web Application: Kripacharya's Seam
+  # ============================================================
+  vyuha-portal:
+    build:
+      context: ./rings/02-web
+    container_name: vyuha-portal
+    restart: unless-stopped
+    ports:
+      - "${PORT_PORTAL:-8082}:8082"
+    environment:
+      - DB_HOST=portal-db
+      - DB_USER=${PORTAL_DB_USER:-vyuha_admin}
+      - DB_PASS=${PORTAL_DB_PASSWORD:-portal_db_pass_dev_only}
+      - DB_NAME=${PORTAL_DB_NAME:-vyuha_portal}
+      - JWT_ALGORITHM=${JWT_ALGORITHM:-RS256}
+    depends_on:
+      - portal-db
+      - drona-vault
+    networks:
+      - public
+      - internal
+      - internal-db
+
+  portal-db:
+    image: postgres:15-alpine
+    container_name: portal-db
+    restart: unless-stopped
+    environment:
+      POSTGRES_USER: ${PORTAL_DB_USER:-vyuha_admin}
+      POSTGRES_PASSWORD: ${PORTAL_DB_PASSWORD:-portal_db_pass_dev_only}
+      POSTGRES_DB: ${PORTAL_DB_NAME:-vyuha_portal}
+    networks:
+      - internal-db
+
+  # ============================================================
+  # RING 3 — SQL Injection: Drona's Vault (INTERNAL ONLY)
+  # ============================================================
+  drona-vault:
+    build:
+      context: ./rings/03-sqli
+    container_name: drona-vault
+    hostname: drona.internal
+    restart: unless-stopped
+    # NOTICE: No published host ports. Reachable strictly via SSRF on the 'internal' network!
+    environment:
+      - DB_USER=${DRONA_DB_USER:-drona_user}
+      - DB_PASS=${DRONA_DB_PASSWORD:-drona_secret_pass_123}
+      - DB_NAME=${DRONA_DB_NAME:-vyuha_core}
+      - ASHWATTHAMA_UNLOCK_URL=http://ashwatthama-host:8081/unlock
+    networks:
+      - internal
+
+  # ============================================================
+  # RING 4 — Memory Forensics: Ashwatthama's Host
+  # ============================================================
+  ashwatthama-host:
+    build:
+      context: ./rings/04-forensics
+    container_name: ashwatthama-host
+    restart: unless-stopped
+    ports:
+      - "${PORT_ASHWATTHAMA:-8084}:80"
+    networks:
+      - public
+      - internal
+
+  # ============================================================
+  # RING 7 — Binary Exploitation: Brihadbala's Sanctum (Live)
+  # ============================================================
+  antahkaranam:
+    build:
+      context: ./rings/07-pwn
+    container_name: antahkaranam-live
+    restart: unless-stopped
+    ports:
+      - "${PORT_PWN_LIVE:-9007}:9007"
+    environment:
+      - HEAP_TOKEN_SECRET=${HEAP_TOKEN_SECRET:-3f9a7c2b5d1e4a8b}
+      - REKEY_TIMEOUT_SECONDS=${REKEY_TIMEOUT_SECONDS:-600}
+    networks:
+      - public
+
+  # ============================================================
+  # Scoring Engine & Verification Matrix
+  # ============================================================
+  scoring-engine:
+    build:
+      context: ./scoring
+    container_name: scoring-engine
+    restart: unless-stopped
+    ports:
+      - "${PORT_SCORING:-8000}:8000"
+    environment:
+      - SCORING_SECRET_KEY=${SCORING_SECRET_KEY}
+      - FLAG_RING_1=${FLAG_RING_1}
+      - FLAG_RING_2=${FLAG_RING_2}
+      - FLAG_RING_3=${FLAG_RING_3}
+      - FLAG_RING_4=${FLAG_RING_4}
+      - FLAG_RING_5=${FLAG_RING_5}
+      - FLAG_RING_6=${FLAG_RING_6}
+      - FLAG_RING_7=${FLAG_RING_7}
+      - FLAG_FINAL=${FLAG_FINAL}
+    networks:
+      - public
+
+  # ============================================================
+  # BATTLEFIELD COMMAND PORTAL UI (Vite + React + Tailwind)
+  # ============================================================
+  vyuha-ui:
+    build:
+      context: ./ui
+    container_name: vyuha-ui
+    restart: unless-stopped
+    ports:
+      - "${PORT_UI:-5173}:80"
+    networks:
+      - public
+

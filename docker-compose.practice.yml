@@ -1,0 +1,18 @@
+version: '3.8'
+
+services:
+  # ============================================================
+  # RING 7 — Practice Replica (Ungated, Mock Flag)
+  # Distributed at T+0 for Binary Exploitation specialists
+  # ============================================================
+  antahkaranam-practice:
+    build:
+      context: ./rings/07-pwn
+      dockerfile: Dockerfile.practice
+    container_name: antahkaranam-practice
+    restart: unless-stopped
+    ports:
+      - "${PORT_PWN_PRACTICE:-9008}:9007"
+    environment:
+      - IS_PRACTICE=1
+      - PRACTICE_FLAG=PRACTICE_MOCK_TOKEN_UNRESTRICTED
