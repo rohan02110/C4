@@ -5,6 +5,7 @@
   "description": "Chakravyuha CTF Platform",
   "scripts": {
     "build": "cd ui && npm install && npm run build",
-    "start": "cd ui && npm run preview"
+    "start": "node server.js",
+    "preview": "cd ui && npm run preview"
   }
 }

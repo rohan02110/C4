@@ -8,11 +8,11 @@ export default defineConfig({
   server: {
     port: 5173,
     host: true,
-    allowedHosts: true
+    allowedHosts: ['the-red-flag.onrender.com', '.onrender.com', 'localhost', '127.0.0.1']
   },
   preview: {
     host: '0.0.0.0',
     port: process.env.PORT ? parseInt(process.env.PORT) : 4173,
-    allowedHosts: true
+    allowedHosts: ['the-red-flag.onrender.com', '.onrender.com', 'localhost', '127.0.0.1']
   }
 })
