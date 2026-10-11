@@ -1,0 +1,12 @@
+{
+  "keys": [
+    {
+      "kty": "RSA",
+      "use": "sig",
+      "alg": "RS256",
+      "kid": "kripa-portal-key-1",
+      "n": "qweoJ6CpxDZaV67lw_2pwmHKhZb8yZ7xnZ2ujojeNOk8Nw4lezgK0Nkr0WQDUGeTprizc2VJuog1b86BXj05pCjvprKMZZ7Fhnurdq3vl1Es75jOZ3Bq_b5skUKqQ9zjuFPW87aQzWtw177gC0bLpQ9z2hEWX0e5jpZXpx6XJyTej4DE_LgZ9ZZ3Gm8R904C4CGI0laxZ_aq0vsOYR7QXVEAkxJ0wbjP98c-Bd4bzqQzXktrgm5SuY47_BcfwpX0QdEb3xC3xJvugCI6MTrPOl37xCK-2gJzGOwDNuXCaZ027pNV7S4Kls0rhRkz3VMTW5cJgZdVkWdWd9oKnzcVDQ",
+      "e": "AQAB"
+    }
+  ]
+}

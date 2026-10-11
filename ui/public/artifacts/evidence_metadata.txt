@@ -1,0 +1,18 @@
+================================================================================
+CHAKRAVYUHA DIGITAL FORENSIC INCIDENT INVESTIGATION: EVIDENCE LOG
+================================================================================
+Evidence ID: EVD-2026-ASHWATTHAMA-4471
+Custodian: Cyber Defense Incident Response Force
+Target Asset: ashwatthama_trace.mem
+Format: Raw Physical Memory Dump (Trimmed Acquisition Image)
+Size: 13,192,273 bytes (Raw), 13,177,193 bytes (Compressed ZIP)
+SHA-256 (ashwatthama_trace.mem): 7f4a2108b981cf03e87d40cb4510d9fa89f7831ec5e622b7aa981cd928a3f5c1
+
+INCIDENT SUMMARY:
+Suspect binary 'vyuha_sync.exe' injected unmapped VAD nodes prior to termination.
+Volatile memory structures in thread local storage hold the encrypted configuration
+block, which contains the steganographic payload password ('SomaRasa_Kavacha_2026!')
+and Passphrase Fragment #1 ('k4vach4_').
+
+INTEGRITY SIGNATURE: ASHWATTHAMA_MEMORY_VAD_CARVED_77c2
+================================================================================

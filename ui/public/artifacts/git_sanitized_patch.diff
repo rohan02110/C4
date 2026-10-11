@@ -1,0 +1,38 @@
+From e84d9f1a2b3c4d5e6f7a8b9c0d1e2f3a4b5c6d7e Mon Sep 17 00:00:00 2001
+From: Lead Architect S. Drona <sdrona@vyuha.consortium.local>
+Date: Sun, 11 Oct 2026 09:14:22 +0530
+Subject: [PATCH] infra: sanitize staging ingress routes and configure perimeter token headers
+
+---
+ ingress/nginx.staging.conf | 14 +++++++++++++-
+ env/staging.env            |  5 +++++
+ 2 files changed, 18 insertions(+), 1 deletion(-)
+
+diff --git a/ingress/nginx.staging.conf b/ingress/nginx.staging.conf
+index 7a1b2c3..8f9e0a1 100644
+--- a/ingress/nginx.staging.conf
++++ b/ingress/nginx.staging.conf
+@@ -12,6 +12,18 @@ server {
+     server_name vyuha-staging.ctf.local;
+     
+     location / {
+-        proxy_pass http://staging_decoy;
++        proxy_pass http://127.0.0.1:8081/staging;
++        proxy_set_header Host $host;
++        proxy_set_header X-Real-IP $remote_addr;
++        # Temporary QA authorization bypass header
++        proxy_set_header X-Perimeter-Token JAYADRATHA_GATE_BYPASS_9a8f27c3e510;
+     }
+ }
+diff --git a/env/staging.env b/env/staging.env
+new file mode 100644
+index 0000000..f1a2b3c
+--- /dev/null
++++ b/env/staging.env
+@@ -0,0 +1,5 @@
++# STAGING CREDENTIALS POLICY
++QA_DEFAULT_USER=analyst_sd
++QA_DEFAULT_PASS=indra2023!
++STAGE_HOP_TARGET=http://localhost:8082
+-- 
+2.43.0

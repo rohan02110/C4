@@ -1,0 +1,43 @@
+{
+  "certificate_transparency_log": "Project VYUHA Sovereign CA",
+  "generated_at": "2026-10-11T08:00:00Z",
+  "entries": [
+    {
+      "log_id": "vyuha-ct-alpha-01",
+      "domain": "chakravyuha-outer.ctf.local",
+      "issuer": "CN=Vyuha Root Sovereign CA, O=Defense Consortium",
+      "serial_number": "4A:91:BC:02:11:88:E4",
+      "not_before": "2026-01-01T00:00:00Z",
+      "not_after": "2027-01-01T00:00:00Z",
+      "status": "active_honeypot",
+      "fingerprint_sha256": "8f2a1b9c4d3e5f6a7b8c9d0e1f2a3b4c5d6e7f8a9b0c1d2e3f4a5b6c7d8e9f0a"
+    },
+    {
+      "log_id": "vyuha-ct-beta-09",
+      "domain": "vyuha-staging.ctf.local",
+      "san": [
+        "vyuha-staging.ctf.local",
+        "staging-ingress.bangalore.ctf.local"
+      ],
+      "issuer": "CN=Vyuha Root Sovereign CA, O=Defense Consortium",
+      "serial_number": "9F:88:21:44:A1:09:BB",
+      "not_before": "2026-06-15T00:00:00Z",
+      "not_after": "2026-12-15T00:00:00Z",
+      "status": "unindexed_staging_internal",
+      "metadata": {
+        "purpose": "QA Analyst Ingress Validation",
+        "target_host": "127.0.0.1:8081",
+        "gateway_token": "JAYADRATHA_GATE_BYPASS_9a8f27c3e510"
+      }
+    },
+    {
+      "log_id": "vyuha-ct-gamma-14",
+      "domain": "kripacharya-portal.ctf.local",
+      "issuer": "CN=Vyuha Root Sovereign CA, O=Defense Consortium",
+      "serial_number": "11:77:33:EE:AA:55:01",
+      "not_before": "2026-05-01T00:00:00Z",
+      "not_after": "2027-05-01T00:00:00Z",
+      "status": "production_gateway"
+    }
+  ]
+}

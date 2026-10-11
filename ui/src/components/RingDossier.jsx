@@ -155,13 +155,18 @@ export default function RingDossier({ ring, isSolved, onFlagSubmit }) {
       <div className="flex flex-wrap items-center gap-2">
         <span className="text-xs font-mono text-neutral-500 mr-2">Artifacts:</span>
         {ring.artifacts.map((art, idx) => (
-          <span 
+          <a 
             key={idx} 
-            className="inline-flex items-center gap-1 px-2.5 py-1 rounded-lg text-xs font-mono bg-neutral-950 border border-neutral-800 text-neutral-300 hover:border-amber-500/50 transition-all cursor-pointer"
+            href={`/artifacts/${art}`}
+            download={art}
+            target="_blank"
+            rel="noopener noreferrer"
+            title={`Download ${art}`}
+            className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-mono bg-neutral-900 border border-neutral-700/80 text-amber-400 hover:text-amber-300 hover:border-amber-500 hover:bg-neutral-800 transition-all cursor-pointer group shadow-sm"
           >
-            <Download className="w-3 h-3 text-amber-500" />
-            {art}
-          </span>
+            <Download className="w-3.5 h-3.5 text-amber-500 group-hover:translate-y-0.5 transition-transform" />
+            <span>{art}</span>
+          </a>
         ))}
         {ring.fragment && (
           <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-lg text-xs font-mono font-bold bg-amber-500/10 border border-amber-500/30 text-amber-300 ml-auto">
